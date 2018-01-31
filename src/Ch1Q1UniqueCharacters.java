@@ -4,7 +4,7 @@ public class Ch1Q1UniqueCharacters {
     //Question: Implement an algorithm to determine if a string has all unique characters.
     //Bonus: What if you can't use additional data structures?
 
-    private static Map<Character, Integer> sumCharacters(String inputString) {
+    public static Map<Character, Integer> sumCharacters(String inputString) {
         Map<Character, Integer> charCount = new HashMap<>();
 
         for(int i=0; i<inputString.length(); i++) {
@@ -17,7 +17,7 @@ public class Ch1Q1UniqueCharacters {
         return charCount;
     }
     
-    private static boolean countUniques(Map<Character, Integer> stringMap) {
+    public static boolean determineUniqueness(Map<Character, Integer> stringMap) {
         boolean isUnique = true;
 
         Iterator mapIndex = stringMap.entrySet().iterator();
@@ -34,7 +34,7 @@ public class Ch1Q1UniqueCharacters {
         return isUnique;
     }
 
-    private static boolean uniqueCharactersNoMaps(String inputString) {
+    public static boolean uniqueCharactersNoMaps(String inputString) {
         boolean isUnique = true;
 
         for( int i=0; i<inputString.length(); i++){
@@ -54,7 +54,7 @@ public class Ch1Q1UniqueCharacters {
         String notUniqueString = "abc123!@##";
 
         Map<Character, Integer> charMap = sumCharacters(uniqueString);
-        boolean isUnique = countUniques(charMap);
+        boolean isUnique = determineUniqueness(charMap);
 
         System.out.printf("For the original question: %b\n", isUnique);
 
