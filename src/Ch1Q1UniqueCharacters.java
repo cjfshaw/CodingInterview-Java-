@@ -48,19 +48,4 @@ public class Ch1Q1UniqueCharacters {
 
         return isUnique;
     }
-    
-    public static void main(String[] args) {
-        String uniqueString = "abc123!@#";
-        String notUniqueString = "abc123!@##";
-
-        Map<Character, Integer> charMap = sumCharacters(uniqueString);
-        boolean isUnique = determineUniqueness(charMap);
-
-        System.out.printf("For the original question: %b\n", isUnique);
-
-        boolean secondIsUnique = uniqueCharactersNoMaps(uniqueString);
-        System.out.printf("For the second question with a unique string: %b\n", secondIsUnique);
-        secondIsUnique = uniqueCharactersNoMaps(notUniqueString);
-        System.out.printf("For the second question with a non unique string: %b\n", secondIsUnique);
-    }
 }

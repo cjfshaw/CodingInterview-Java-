@@ -47,5 +47,4 @@ public class Ch1Q1UniqueCharactersTests {
         Assert.assertFalse("Result of nonUniqueString must be false.", nonUniqueResult);
         Assert.assertTrue( "Result of uniqueString must be true.", uniqueResult);
     }
-
 }
