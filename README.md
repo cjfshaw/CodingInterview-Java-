@@ -9,3 +9,4 @@ Q5: Took FAR too long. I overcomplicated how I was doing it by trying to make on
 change rather than one to check for inserts, one for removals, etc. Thinking of how to test helped with this. DON'T
 WORRY ABOUT HAVING A LOT OF LINES, JUST GET A SOLUTION FIRST. You can optimize after you've solved it. Done it better
 than perfect.
+C7: Don't understand, got solution from book.
