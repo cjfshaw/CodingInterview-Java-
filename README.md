@@ -10,3 +10,6 @@ change rather than one to check for inserts, one for removals, etc. Thinking of 
 WORRY ABOUT HAVING A LOT OF LINES, JUST GET A SOLUTION FIRST. You can optimize after you've solved it. Done it better
 than perfect.
 C7: Don't understand, got solution from book.
+
+Chapter 2
+Ch1: Did the "bonus" question first. Implemented without a buffer. Need to go back and do this with a buffer. Remember that a buff is just any temporary data store.
