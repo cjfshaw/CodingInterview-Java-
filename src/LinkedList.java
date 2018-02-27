@@ -5,6 +5,12 @@ public class LinkedList {
     private Node last;
     private int size;
 
+    public LinkedList(Node first, Node last, int size) {
+        this.first = first;
+        this.last = last;
+        this.size = size;
+    }
+
     Node getFirst() {
         return first;
     }
@@ -31,14 +37,26 @@ public class LinkedList {
         }
     }
 
-    void add(Node nodeToAdd, int index) {
+    void add(Node nodeToAdd, int index) {//add try catch around adding at index >= size
         //this will make the node at space index equal to node to add
         //if there is already a node there, it will be pushed back
-        Node nodeAtIndex = get(index);
-        nodeAtIndex.getPrevious().setNext(nodeToAdd);
-        nodeToAdd.setPrevious(nodeAtIndex.getPrevious());
-        nodeToAdd.setNext(nodeAtIndex);
-        nodeAtIndex.setPrevious(nodeToAdd);
+        if(index == 0) {
+            nodeToAdd.setPrevious(null);
+            nodeToAdd.setNext(first);
+            first.setPrevious(nodeToAdd);
+            first = nodeToAdd;
+        } else if(index == size-1) {
+            nodeToAdd.setNext(null);
+            nodeToAdd.setPrevious(last);
+            last.setNext(nodeToAdd);
+            last=nodeToAdd;
+        } else {
+            Node nodeAtIndex = get(index);
+            nodeAtIndex.getPrevious().setNext(nodeToAdd);
+            nodeToAdd.setPrevious(nodeAtIndex.getPrevious());
+            nodeToAdd.setNext(nodeAtIndex);
+            nodeAtIndex.setPrevious(nodeToAdd);
+        }
         size++;
     }
 
@@ -46,22 +64,40 @@ public class LinkedList {
         nodeToAdd.setPrevious(last);
         nodeToAdd.setNext(null);
         last.setNext(nodeToAdd);
+        last = nodeToAdd;
         size++;
     }
 
-    void remove(int index) {
-        Node nodeToRemove = get(index);
-        nodeToRemove.getPrevious().setNext(nodeToRemove.getNext());
-        nodeToRemove.getNext().setPrevious(nodeToRemove.getPrevious());
+    void remove(int index) {//add try catch at removing from empty list
+        if(index==0) {
+            first=first.getNext();
+            first.setPrevious(null);
+        } else if (index == size-1) {
+            last=last.getPrevious();
+            last.setNext(null);
+        } else {
+            Node nodeToRemove = get(index);
+            nodeToRemove.getPrevious().setNext(nodeToRemove.getNext());
+            nodeToRemove.getNext().setPrevious(nodeToRemove.getPrevious());
+        }
         size--;
     }
 
-    void replace(Node nodeToAdd, int index) {
+    void replace(Node nodeToAdd, int index) {//add try catch at replacing from nonexistent entry (empty, index >=size)
         Node nodeToReplace = get(index);
         nodeToAdd.setPrevious(nodeToReplace.getPrevious());
         nodeToAdd.setNext(nodeToReplace.getNext());
         nodeToReplace.getPrevious().setNext(nodeToAdd);
         nodeToReplace.getNext().setPrevious(nodeToAdd);
+    }
+
+    void printListvalues() {
+        Node currentNode = first;
+        for(int i=0;i<size;i++) {
+            System.out.print(currentNode.getValue() + " ");
+            currentNode=currentNode.getNext();
+        }
+        System.out.println();
     }
 
     boolean isListCyclical() {
@@ -92,22 +128,26 @@ public class LinkedList {
     void removeDuplicates() {
         Node currentNode = first;
 
-        HashMap<Node, Integer> nodeCounter = new HashMap<>();
+        HashMap<String, Integer> nodeCounter = new HashMap<>();
         int listIterator = 0;
 
         while(currentNode.hasNext()) {
-            if(nodeCounter.get(currentNode) == null) {
-                nodeCounter.put(currentNode, 1);
+            if(nodeCounter.get(currentNode.getValue()) == null) {
+                nodeCounter.put(currentNode.getValue(), 1);
             } else {
-                nodeCounter.put(currentNode, nodeCounter.get(currentNode)+1);
+                nodeCounter.put(currentNode.getValue(), nodeCounter.get(currentNode.getValue())+1);
             }
 
-            if( nodeCounter.get(currentNode) > 1) {
+            if( nodeCounter.get(currentNode.getValue()) > 1) {
                 remove(listIterator);
             }
 
             listIterator++;
             currentNode = currentNode.getNext();
+        }
+
+        if(nodeCounter.get(last.getValue()) > 1) {
+            remove(size-1);
         }
     }
 }

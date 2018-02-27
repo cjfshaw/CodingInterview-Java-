@@ -1,9 +1,18 @@
 public class Node {
-    private Node previous;
-    private Node next;
-    private String value;
+    public Node previous;
+    public Node next;
+    public String value;
 
-    boolean hasNext() {
+    public Node() {
+    }
+
+    public Node(Node inputPrevious, Node inputNext, String inputValue){
+        previous = inputPrevious;
+        next = inputNext;
+        value = inputValue;
+    }
+
+    public boolean hasNext() {
         if (next != null) {
             return true;
         } else {
@@ -11,7 +20,7 @@ public class Node {
         }
     }
 
-    boolean hasPrevious() {
+    public boolean hasPrevious() {
         if (previous != null) {
             return true;
         } else {
@@ -19,27 +28,27 @@ public class Node {
         }
     }
 
-    Node getPrevious() {
+    public Node getPrevious() {
         return previous;
     }
 
-    void setPrevious(Node nodeToSet) {
+    public void setPrevious(Node nodeToSet) {
         previous = nodeToSet;
     }
 
-    Node getNext() {
+    public Node getNext() {
         return next;
     }
 
-    void setNext(Node nodeToSet) {
+    public void setNext(Node nodeToSet) {
         next = nodeToSet;
     }
 
-    String getValue() {
+    public String getValue() {
         return value;
     }
 
-    void setValue(String newValue) {
+    public void setValue(String newValue) {
         value = newValue;
     }
 }
