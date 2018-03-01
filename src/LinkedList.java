@@ -61,11 +61,25 @@ public class LinkedList {
     }
 
     void append(Node nodeToAdd) {
-        nodeToAdd.setPrevious(last);
-        nodeToAdd.setNext(null);
-        last.setNext(nodeToAdd);
-        last = nodeToAdd;
-        size++;
+        if(size == 0) {
+            first = nodeToAdd;
+            last = nodeToAdd;
+            nodeToAdd.setPrevious(null);
+            nodeToAdd.setNext(null);
+            size++;
+        } else if (size == 1) {
+            first.setNext(nodeToAdd);
+            last = nodeToAdd;
+            nodeToAdd.setPrevious(first);
+            nodeToAdd.setNext(null);
+            size++;
+        } else {
+            nodeToAdd.setPrevious(last);
+            nodeToAdd.setNext(null);
+            last.setNext(nodeToAdd);
+            last = nodeToAdd;
+            size++;
+        }
     }
 
     void remove(int index) {//add try catch at removing from empty list
@@ -84,11 +98,23 @@ public class LinkedList {
     }
 
     void replace(Node nodeToAdd, int index) {//add try catch at replacing from nonexistent entry (empty, index >=size)
-        Node nodeToReplace = get(index);
-        nodeToAdd.setPrevious(nodeToReplace.getPrevious());
-        nodeToAdd.setNext(nodeToReplace.getNext());
-        nodeToReplace.getPrevious().setNext(nodeToAdd);
-        nodeToReplace.getNext().setPrevious(nodeToAdd);
+        if(index == 0) {
+            nodeToAdd.setNext(first.getNext());
+            first.getNext().setPrevious(nodeToAdd);
+            first = nodeToAdd;
+            nodeToAdd.setPrevious(null);
+        } else if (index == size-1) {
+            nodeToAdd.setPrevious(last.getPrevious());
+            last.getPrevious().setNext(nodeToAdd);
+            last=nodeToAdd;
+            nodeToAdd.setNext(null);
+        } else {
+            Node nodeToReplace = get(index);
+            nodeToAdd.setPrevious(nodeToReplace.getPrevious());
+            nodeToAdd.setNext(nodeToReplace.getNext());
+            nodeToReplace.getPrevious().setNext(nodeToAdd);
+            nodeToReplace.getNext().setPrevious(nodeToAdd);
+        }
     }
 
     void printListvalues() {
@@ -148,6 +174,44 @@ public class LinkedList {
 
         if(nodeCounter.get(last.getValue()) > 1) {
             remove(size-1);
+        }
+    }
+
+    Node kthToLast(int index) {
+        return get(getSize()-index);
+    }
+
+    void partitionAroundX(String partitionValue) {
+        HashMap<Node, String> lesserMap = new HashMap<Node, String>();
+        HashMap<Node, String> greaterMap = new HashMap<Node, String>();
+
+        LinkedList lesserList = new LinkedList(null, null, 0);
+        LinkedList greaterList = new LinkedList(null, null, 0);
+
+        printListvalues();
+
+        for(int i=0;i<size;i++) {
+            System.out.println("i: " + i);
+            System.out.println(get(i).value);
+            if(get(i).value.compareTo(partitionValue) < 0) {
+                System.out.println("In lesser if");
+                lesserList.append(get(i));
+            } else {
+                System.out.println("In greater else");
+                greaterList.append(get(i));
+            }
+        }
+
+        int counter = 0;
+
+        for(int lesserIterator=0;lesserIterator<lesserList.size;lesserIterator++) {
+            replace(lesserList.get(lesserIterator), lesserIterator);
+            counter++;
+        }
+
+        for(int greaterIterator=0;greaterIterator<greaterList.size;greaterIterator++) {
+            replace(greaterList.get(greaterIterator), greaterIterator + counter);
+            counter++;
         }
     }
 }

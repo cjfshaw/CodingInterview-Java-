@@ -115,10 +115,33 @@ public class LinkedListTest {
         Assert.assertEquals(d, testList.getLast());
         Assert.assertEquals(c, d.getPrevious());
         Assert.assertEquals(null, d.getNext());
+
+        LinkedList emptyList = new LinkedList(null, null, 0);
+
+        Node e = new Node(null, null, "e");
+
+        emptyList.append(e);
+
+        Assert.assertEquals(e, emptyList.getFirst());
+        Assert.assertEquals(e, emptyList.getLast());
+        Assert.assertEquals(null, e.getPrevious());
+        Assert.assertEquals(null, e.getNext());
+        Assert.assertEquals(1, emptyList.getSize());
+
+        Node f = new Node(null, null, "f");
+
+        emptyList.append(f);
+
+        Assert.assertEquals(e, emptyList.getFirst());
+        Assert.assertEquals(f, emptyList.getLast());
+        Assert.assertEquals(f, e.getNext());
+        Assert.assertEquals(e, f.getPrevious());
+        Assert.assertEquals(null, f.getNext());
+        Assert.assertEquals(2, emptyList.getSize());
     }
 
     @Test
-    public void remove() {
+    public void remove() {//add test cases for removing when size is 0, 1, or 2
         Node a = new Node(null, null, "a");
         Node b = new Node(a, null, "b");
         Node c = new Node(b, null, "c");
@@ -170,6 +193,22 @@ public class LinkedListTest {
         Assert.assertEquals(3, testList.getSize());
         Assert.assertEquals(a, d.getPrevious());
         Assert.assertEquals(c, d.getNext());
+
+        Node e = new Node(null, null, "e");
+
+        testList.replace(e, 0);
+
+        Assert.assertEquals(e, testList.getFirst());
+        Assert.assertEquals(null, e.getPrevious());
+        Assert.assertEquals(d, e.getNext());
+
+        Node f = new Node(null, null, "f");
+
+        testList.replace(f, testList.getSize()-1);
+
+        Assert.assertEquals(f, testList.getLast());
+        Assert.assertEquals(d, f.getPrevious());
+        Assert.assertEquals(null, f.getNext());
     }
 
     @Test
@@ -211,5 +250,48 @@ public class LinkedListTest {
         testList.removeDuplicates();
 
         Assert.assertEquals(3, testList.getSize());
+    }
+
+    @Test
+    public void kthToLast() {
+        Node a = new Node(null, null, "a");
+        Node b = new Node(a, null, "b");
+        Node c = new Node(b, null, "c");
+        a.setNext(b);
+        b.setNext(c);
+        Node d = new Node(null, null, "d");
+        Node e = new Node(null, null, "e");
+
+        LinkedList testList = new LinkedList(a, c, 3);
+        testList.append(d);
+        testList.append(e);
+
+        Node kthToLastNode = testList.kthToLast(2);
+
+        Assert.assertEquals(d, kthToLastNode);
+    }
+
+    @Test
+    public void partitionAroundX() {
+        Node a = new Node(null, null, "z");
+        Node b = new Node(a, null, "j");
+        Node c = new Node(b, null, "c");
+        a.setNext(b);
+        b.setNext(c);
+        Node d = new Node(c, null, "d");
+        Node e = new Node(d, null, "e");
+        d.setNext(e);
+
+        LinkedList testList = new LinkedList(a, c, 3);
+        testList.append(d);
+        testList.append(e);
+
+        testList.printListvalues();
+        System.out.println("Z next: " + testList.getFirst().getNext().value);
+        System.out.println(testList.get(1).value);
+
+        testList.partitionAroundX("j");
+
+        testList.printListvalues();
     }
 }
