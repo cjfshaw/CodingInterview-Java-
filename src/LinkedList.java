@@ -181,37 +181,19 @@ public class LinkedList {
         return get(getSize()-index);
     }
 
-    void partitionAroundX(String partitionValue) {
-        HashMap<Node, String> lesserMap = new HashMap<Node, String>();
-        HashMap<Node, String> greaterMap = new HashMap<Node, String>();
-
-        LinkedList lesserList = new LinkedList(null, null, 0);
-        LinkedList greaterList = new LinkedList(null, null, 0);
-
-        printListvalues();
-
+    boolean isPalindrome() {
+        int j = size -1;
         for(int i=0;i<size;i++) {
-            System.out.println("i: " + i);
-            System.out.println(get(i).value);
-            if(get(i).value.compareTo(partitionValue) < 0) {
-                System.out.println("In lesser if");
-                lesserList.append(get(i));
-            } else {
-                System.out.println("In greater else");
-                greaterList.append(get(i));
+            if(size%2 == 0 && i > size/2) {
+                return true;
+            } else if (size%2 == 1 && i == size/2+1) {
+                return true;
             }
+            if(get(i).getValue() != get(j).getValue()) {
+                return false;
+            }
+            j--;
         }
-
-        int counter = 0;
-
-        for(int lesserIterator=0;lesserIterator<lesserList.size;lesserIterator++) {
-            replace(lesserList.get(lesserIterator), lesserIterator);
-            counter++;
-        }
-
-        for(int greaterIterator=0;greaterIterator<greaterList.size;greaterIterator++) {
-            replace(greaterList.get(greaterIterator), greaterIterator + counter);
-            counter++;
-        }
+        return true;
     }
 }

@@ -272,26 +272,33 @@ public class LinkedListTest {
     }
 
     @Test
-    public void partitionAroundX() {
-        Node a = new Node(null, null, "z");
-        Node b = new Node(a, null, "j");
+    public void isPalindrome() {
+        Node a = new Node(null, null, "a");
+        Node b = new Node(a, null, "b");
         Node c = new Node(b, null, "c");
         a.setNext(b);
         b.setNext(c);
-        Node d = new Node(c, null, "d");
-        Node e = new Node(d, null, "e");
-        d.setNext(e);
+        Node d = new Node(null, null, "d");
+        Node e = new Node(null, null, "e");
 
-        LinkedList testList = new LinkedList(a, c, 3);
-        testList.append(d);
-        testList.append(e);
+        LinkedList notPalindromeList = new LinkedList(a, c, 3);
+        notPalindromeList.append(d);
+        notPalindromeList.append(e);
 
-        testList.printListvalues();
-        System.out.println("Z next: " + testList.getFirst().getNext().value);
-        System.out.println(testList.get(1).value);
+        Node f = new Node(null, null, "a");
+        Node g = new Node(f, null, "b");
+        Node h = new Node(g, null, "c");
+        f.setNext(g);
+        g.setNext(h);
+        Node i = new Node(null, null, "b");
+        Node j = new Node(null, null, "a");
 
-        testList.partitionAroundX("j");
+        LinkedList palindromeList = new LinkedList(f, h, 3);
+        palindromeList.append(i);
+        palindromeList.append(j);
 
-        testList.printListvalues();
+        Assert.assertFalse(notPalindromeList.isPalindrome());
+
+        Assert.assertTrue(palindromeList.isPalindrome());
     }
 }
